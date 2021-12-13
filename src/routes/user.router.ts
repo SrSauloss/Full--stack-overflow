@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import { Router } from 'express';
 import * as userController from '../controllers/user.controller';
 

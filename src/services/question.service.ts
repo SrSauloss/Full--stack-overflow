@@ -1,5 +1,5 @@
 import QuestionError from "../errors/question.error";
-import { answer, db_answer, db_question, question } from "../protocols/question.protocol";
+import { answer, question } from "../protocols/question.protocol";
 import * as questionRepository from '../repositories/question.repository';
 import * as userRepository from '../repositories/user.repository';
 
