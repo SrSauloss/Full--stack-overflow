@@ -12,30 +12,19 @@ async function storeQuestion(question : question) {
 
 async function getQuestionById(id : string) : Promise<db_question>{
     const resul = await connection.query(` 
-    SELECT question, student, class, tags, answered, "submitAt" 
+    SELECT question, student, class, tags, answered, TO_CHAR("submitAt", 'yyyy-mm-dd HH24:MI') AS "submitAt"
         FROM questions 
             WHERE id = $1`, [id]);
     return resul.rows[0];
 }
 
 async function getAnswerById(id : string) : Promise<db_answer> {
-    const resul = await connection.query(`SELECT * FROM answers WHERE question_id = $1`, [id]);
-
-    if(resul.rowCount != 0){
-        delete resul.rows[0].id;
-        delete resul.rows[0].question_id;
-        delete resul.rows[0].user_id;
-    }
-
+    const resul = await connection.query(`SELECT TO_CHAR("answeredAt", 'yyyy-mm-dd HH24:MI ') AS "answeredAt", "answeredBy", answer FROM answers WHERE question_id = $1`, [id]);
     return resul.rows[0];
 }
 
 async function getAllQuestionsNotAnswer() : Promise<db_question[]>{
-    const resul = await connection.query(`SELECT * FROM questions WHERE answered = $1`, [false]);
-   if(resul.rowCount != 0){
-        delete resul.rows[0].answered;
-        delete resul.rows[0].tags;
-    }
+    const resul = await connection.query(`SELECT id, question, student, class, TO_CHAR("submitAt", 'yyyy-mm-dd HH24:MI ') AS "submitAt" FROM questions WHERE answered = $1`, [false]);
     return resul.rows;
 }
 

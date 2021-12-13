@@ -28,6 +28,7 @@ async function getAllQuestionsNotAnswer() {
     if(questions.length === 0){
         throw new QuestionError('No have questions');
     }
+
     return questions;
 }
 
