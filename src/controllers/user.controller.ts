@@ -6,13 +6,13 @@ import * as userService from '../services/user.service';
 import { user } from '../protocols/user.protocol';
 
 async function storeUser(req: Request, res: Response) {
-    const { name } = req.body;
-    const classe = req.body.class;
-    const isValid = userStoreSchema.validate({ name, class: classe });
+  const { name } = req.body;
+  const classe = req.body.class;
+  const isValid = userStoreSchema.validate({ name, class: classe });
 
-    if (isValid.error) {
-        return res.sendStatus(403);
-    }
+  if (isValid.error) {
+    return res.sendStatus(403);
+  }
 
   try {
     const objectUser : user = { name, class: classe };
@@ -22,6 +22,7 @@ async function storeUser(req: Request, res: Response) {
     if (err.name === 'UserError') {
       return res.status(400).send(err.message);
     }
+  }
 }
 
 export { storeUser };

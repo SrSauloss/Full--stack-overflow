@@ -59,12 +59,14 @@ async function updateQuestion(req: Request, res: Response) {
     }
 }
 
-
 async function getQuestionsNotAnswer(req: Request, res: Response) {
    try{
     const resul = await questionService.getAllQuestionsNotAnswer();
     res.send(resul);
    }catch(err){
+    if(err.name === 'QuestionError'){
+        return res.status(404).send(err.message);
+    }
     res.sendStatus(500)
    }
 }

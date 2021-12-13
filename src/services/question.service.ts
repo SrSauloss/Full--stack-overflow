@@ -25,7 +25,9 @@ async function getQuestionById(id : string) {
 
 async function getAllQuestionsNotAnswer() {
     const questions = await questionRepository.getAllQuestionsNotAnswer();
-    console.log(questions)
+    if(questions.length === 0){
+        throw new QuestionError('No have questions');
+    }
     return questions;
 }
 
