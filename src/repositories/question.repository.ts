@@ -7,8 +7,14 @@ async function storeQuestion(question: question){
         VALUES($1, $2, $3, $4, NOW()) RETURNING id`,
     [question.question, question.student, question.class, question.tags]);
 
+    return resul.rows[  0];
+}
+
+async function getQuestionById(id: string){
+    const resul = await connection.query(`SELECT * FROM questions WHERE id = $1`, [id]);
+    console.log(resul)
     return resul.rows[0];
 }
 
 
-export { storeQuestion };
+export { storeQuestion, getQuestionById };

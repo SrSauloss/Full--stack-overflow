@@ -7,4 +7,9 @@ async function storeQuestion(objectQuestion : question) {
   return resul;
 }
 
-export { storeQuestion };
+async function getQuestionById(id : string) {
+    const resul = await questionRepository.getQuestionById(id);
+    return resul;
+}
+
+export { storeQuestion, getQuestionById };
