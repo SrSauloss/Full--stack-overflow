@@ -32,6 +32,10 @@ async function getAnswerById(id : string) : Promise<db_answer> {
 
 async function getAllQuestionsNotAnswer() : Promise<db_question[]>{
     const resul = await connection.query(`SELECT * FROM questions WHERE answered = $1`, [false]);
+   if(resul.rowCount != 0){
+        delete resul.rows[0].answered;
+        delete resul.rows[0].tags;
+    }
     return resul.rows;
 }
 
