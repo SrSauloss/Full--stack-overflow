@@ -1,5 +1,5 @@
 import connection from "../database/database";
-import { db_user, user } from "../protocols/user";
+import { db_user, user } from "../protocols/user.protocol";
 
 async function findUser(user:user) : Promise<db_user> {
     const resul = await connection.query(`SELECT * FROM users WHERE name = $1`,[user.name]);
