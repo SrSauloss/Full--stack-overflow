@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable consistent-return */
 import { Request, Response } from 'express';
 import { userStoreSchema } from '../validations/schemas';
 import * as userService from '../services/user.service';
@@ -12,15 +14,13 @@ async function storeUser(req: Request, res: Response) {
         return res.sendStatus(403);
     }
 
-    try {
-        const objectUser : user = { name, class: classe };
-        const resul = await userService.storeUser(objectUser);
-        res.status(201).send(resul);
-    } catch (err) {
-        if (err.name === 'UserError') {
-            return res.status(400).send(err.message);
-        }
-        res.sendStatus(500);
+  try {
+    const objectUser : user = { name, class: classe };
+    const resul = await userService.storeUser(objectUser);
+    res.status(201).send(resul);
+  } catch (err) {
+    if (err.name === 'UserError') {
+      return res.status(400).send(err.message);
     }
 }
 

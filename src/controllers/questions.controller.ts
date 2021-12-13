@@ -29,8 +29,34 @@ async function getQuestionId(req: Request, res: Response) {
     const resul = await questionService.getQuestionById(id);
     res.send(resul);
    }catch(err){
+    if(err.name === 'QuestionError'){
+        return res.status(400).send(err.message);
+    }
     res.sendStatus(500)
    }
+}
+
+async function updateQuestion(req: Request, res: Response) {
+    const { id } = req.params;
+    const { answer } = req.body;
+
+    const token = req.headers.authorization?.split(' ')[1];
+    if(!token) {
+        return res.sendStatus(401);
+    }
+    if(!id || !answer) {
+        return res.sendStatus(400);
+    }
+
+    try{
+        const resul = await questionService.updateAnswerQuestion(token, id, answer);
+        return res.sendStatus(200);
+    } catch(err) {
+        if(err.name === 'QuestionError'){
+            return res.status(409).send(err.message);
+        }
+        res.sendStatus(500);
+    }
 }
 
 
@@ -43,5 +69,4 @@ async function getQuestionsNotAnswer(req: Request, res: Response) {
    }
 }
 
-
-export { storeQuestion, getQuestionId, getQuestionsNotAnswer };
+export { storeQuestion, getQuestionId, updateQuestion, getQuestionsNotAnswer };
