@@ -9,9 +9,8 @@ async function storeUser(objectUser:user) {
       throw new UserError('Usuário já cadastrado');
 
   }
-  console.log(user);
+
   const resul : db_user = await userRepository.storeUser(objectUser);
-  console.log(resul);
   return resul;
 }
 
