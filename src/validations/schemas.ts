@@ -6,10 +6,10 @@ const userStoreSchema = Joi.object({
 });
 
 const questionStoreSchema = Joi.object({
-    question: Joi.string().required(),
-	student: Joi.string().required(),
-	class: Joi.string().required(),
-	tags: Joi.string().required(),
-})
+  question: Joi.string().required(),
+  student: Joi.string().required(),
+  class: Joi.string().required(),
+  tags: Joi.string().required(),
+});
 
 export { userStoreSchema, questionStoreSchema };
