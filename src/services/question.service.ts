@@ -18,4 +18,11 @@ async function getQuestionById(id : string) {
     return res;
 }
 
-export { storeQuestion, getQuestionById };
+async function getAllQuestionsNotAnswer() {
+    const questions = await questionRepository.getAllQuestionsNotAnswer();
+    console.log(questions)
+    return questions;
+}
+
+
+export { storeQuestion, getQuestionById, getAllQuestionsNotAnswer };

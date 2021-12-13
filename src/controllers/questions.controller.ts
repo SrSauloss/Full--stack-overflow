@@ -34,4 +34,14 @@ async function getQuestionId(req: Request, res: Response) {
 }
 
 
-export { storeQuestion, getQuestionId };
+async function getQuestionsNotAnswer(req: Request, res: Response) {
+   try{
+    const resul = await questionService.getAllQuestionsNotAnswer();
+    res.send(resul);
+   }catch(err){
+    res.sendStatus(500)
+   }
+}
+
+
+export { storeQuestion, getQuestionId, getQuestionsNotAnswer };

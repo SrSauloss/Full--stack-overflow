@@ -1,13 +1,12 @@
 export interface question {
     question: string;
-    student:  string;
+    student: string;
     class: string;
     tags: string;
 }
 
 export interface db_question extends question{
-    answered: boolean;
-    submitAt: string;
+    aid: string;
 }
 
 export interface db_answer {

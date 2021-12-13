@@ -23,6 +23,9 @@ async function getAnswerById(id: string) : Promise<db_answer> {
     return resul.rows[0];
 }
 
+async function getAllQuestionsNotAnswer() : Promise<db_question[]>{
+    const resul = await connection.query(`SELECT * FROM questions WHERE answered = $1`, [false]);
+    return resul.rows;
+}
 
-
-export { storeQuestion, getQuestionById,getAnswerById };
+export { storeQuestion, getQuestionById,getAnswerById, getAllQuestionsNotAnswer };
