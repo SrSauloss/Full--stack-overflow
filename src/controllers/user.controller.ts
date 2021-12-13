@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { userStoreSchema } from '../validations/schemas';
 import * as userService from '../services/user.service';
-import { user } from '../protocols/user';
+import { user } from '../protocols/user.protocol';
 
 async function storeUser(req: Request, res: Response) {
   const { name } = req.body;
