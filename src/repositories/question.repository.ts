@@ -20,6 +20,13 @@ async function getQuestionById(id : string) : Promise<db_question>{
 
 async function getAnswerById(id : string) : Promise<db_answer> {
     const resul = await connection.query(`SELECT * FROM answers WHERE question_id = $1`, [id]);
+
+    if(resul.rowCount != 0){
+        delete resul.rows[0].id;
+        delete resul.rows[0].question_id;
+        delete resul.rows[0].user_id;
+    }
+
     return resul.rows[0];
 }
 

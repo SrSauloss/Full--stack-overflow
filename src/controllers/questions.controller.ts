@@ -29,6 +29,9 @@ async function getQuestionId(req: Request, res: Response) {
     const resul = await questionService.getQuestionById(id);
     res.send(resul);
    }catch(err){
+    if(err.name === 'QuestionError'){
+        return res.status(400).send(err.message);
+    }
     res.sendStatus(500)
    }
 }

@@ -11,12 +11,15 @@ async function storeQuestion(objectQuestion : question) {
 
 async function getQuestionById(id : string) {
     const answered = await questionRepository.getAnswerById(id);
-    let res;
+    let res = await questionRepository.getQuestionById(id);
 
-    if(!answered){
-        res = await questionRepository.getQuestionById(id);
+    if(!res){
+        throw new QuestionError('Non-existent question');
     }
-
+    if(answered){
+      res = {...res, ...answered};
+    }
+   
     return res;
 }
 
