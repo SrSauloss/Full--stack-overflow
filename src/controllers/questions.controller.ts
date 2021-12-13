@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { question } from '../protocols/question.protocol';
 import { questionStoreSchema } from '../validations/schemas';
 import * as questionService from '../services/question.service';
 
-async function storeQuestion(req: Request, res: Response) {
+async function storeQuestion(req: Request, res: Response, next: NextFunction) {
     const objectQuestion : question = req.body;
 
     const isValid = questionStoreSchema.validate(objectQuestion);
@@ -15,11 +15,11 @@ async function storeQuestion(req: Request, res: Response) {
       const resul = await questionService.storeQuestion(objectQuestion);
       res.status(201).send(resul);
     }catch(err){
-      res.sendStatus(500)
+      next(err);
     }
 }
 
-async function getQuestionId(req: Request, res: Response) {
+async function getQuestionId(req: Request, res: Response, next: NextFunction) {
    const { id } = req.params;
    if(!id) {
     return res.status(400).send({message: 'It is necessary to inform the question id by parameter'});
@@ -32,11 +32,11 @@ async function getQuestionId(req: Request, res: Response) {
     if(err.name === 'QuestionError'){
         return res.status(400).send(err.message);
     }
-    res.sendStatus(500)
+    next(err);
    }
 }
 
-async function updateQuestion(req: Request, res: Response) {
+async function updateQuestion(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
     const { answer } = req.body;
 
@@ -55,11 +55,11 @@ async function updateQuestion(req: Request, res: Response) {
         if(err.name === 'QuestionError'){
             return res.status(409).send(err.message);
         }
-        res.sendStatus(500);
+        next(err);
     }
 }
 
-async function getQuestionsNotAnswer(req: Request, res: Response) {
+async function getQuestionsNotAnswer(req: Request, res: Response, next: NextFunction) {
    try{
     const resul = await questionService.getAllQuestionsNotAnswer();
     res.send(resul);
@@ -67,7 +67,7 @@ async function getQuestionsNotAnswer(req: Request, res: Response) {
     if(err.name === 'QuestionError'){
         return res.status(404).send(err.message);
     }
-    res.sendStatus(500)
+    next(err);
    }
 }
 

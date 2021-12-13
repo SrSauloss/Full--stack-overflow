@@ -1,11 +1,11 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable consistent-return */
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { userStoreSchema } from '../validations/schemas';
 import * as userService from '../services/user.service';
 import { user } from '../protocols/user.protocol';
 
-async function storeUser(req: Request, res: Response) {
+async function storeUser(req: Request, res: Response, next: NextFunction) {
   const { name } = req.body;
   const classe = req.body.class;
   const isValid = userStoreSchema.validate({ name, class: classe });
@@ -22,6 +22,7 @@ async function storeUser(req: Request, res: Response) {
     if (err.name === 'UserError') {
       return res.status(400).send(err.message);
     }
+    next(err);
   }
 }
 
