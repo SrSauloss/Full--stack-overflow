@@ -8,7 +8,10 @@ export interface question {
 export interface db_question extends question{
     answered: boolean;
     submitAt: string;
-    answeredAt?: string;
-    answeredBy?: string;
-    answer?: string;
+}
+
+export interface db_answer {
+    answeredAt: string;
+    answeredBy: string;
+    answer: string;
 }
