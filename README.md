@@ -47,7 +47,7 @@
     ```js
         {
           	"token": "Unique token example: 1234-5678"
-        },
+        }
     
 + GET /questions/:id
     - response:
@@ -60,7 +60,7 @@
           "tags": "All tags, example: typescript, vida, javascript, java..."
           "answered": false or true,
           "submitAt": "date it was created example: 2021-01-01 10:12"
-        },
+        }
     ```
 + GET /questions
     - response:
