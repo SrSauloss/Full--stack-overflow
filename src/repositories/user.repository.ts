@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 import connection from "../database/database";
-import { db_user, user } from "../protocols/user";
+import { db_user, user } from '../protocols/user.protocol';
+import { auth } from '../protocols/auth.protocol';
 
 async function findUser(user:user) : Promise<db_user> {
     const resul = await connection.query(`SELECT * FROM users WHERE name = $1`,[user.name]);
@@ -11,4 +13,9 @@ async function storeUser(user:user) : Promise<db_user> {
     return resul.rows[0];
 }
 
-export { storeUser,findUser };
+async function storeAuth(objectAuth: auth) {
+    const resul = await connection.query(`INSERT INTO auths (token, user_id) VALUES($1, $2) RETURNING token`,[objectAuth.token, objectAuth.user_id]);
+    return resul.rows[0];
+}
+
+export { storeUser, findUser, storeAuth };
