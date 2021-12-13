@@ -40,7 +40,6 @@ async function updateAnswerQuestion(token: string, id : string, answer : string)
     }
 
     const resultAnswer = await questionRepository.updateQuestion(objectAnswer);
-    console.log(resultAnswer)
  
     return resultAnswer;
 }
