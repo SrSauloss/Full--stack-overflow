@@ -11,13 +11,27 @@ async function storeQuestion(req: Request, res: Response) {
         return res.sendStatus(403);
     }
 
+    try{
+      const resul = await questionService.storeQuestion(objectQuestion);
+      res.status(201).send(resul);
+    }catch(err){
+      res.sendStatus(500)
+    }
+}
+
+async function getQuestionId(req: Request, res: Response) {
+   const { id } = req.params;
+   if(!id) {
+    return res.status(400).send({message: 'It is necessary to inform the question id by parameter'});
+   }
+
    try{
-    const resul = await questionService.storeQuestion(objectQuestion);
-    res.status(201).send(resul);
-    
+    const resul = await questionService.getQuestionById(id);
+    res.send(resul);
    }catch(err){
     res.sendStatus(500)
    }
 }
 
-export { storeQuestion };
+
+export { storeQuestion, getQuestionId };
