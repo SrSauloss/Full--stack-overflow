@@ -23,6 +23,14 @@ async function getQuestionById(id : string) {
     return res;
 }
 
+async function getAllQuestionsNotAnswer() {
+    const questions = await questionRepository.getAllQuestionsNotAnswer();
+    if(questions.length === 0){
+        throw new QuestionError('No have questions');
+    }
+    return questions;
+}
+
 async function updateAnswerQuestion(token: string, id : string, answer : string) {
     const question = await questionRepository.getQuestionById(id);
 
@@ -44,4 +52,4 @@ async function updateAnswerQuestion(token: string, id : string, answer : string)
     return resultAnswer;
 }
 
-export { storeQuestion, getQuestionById, updateAnswerQuestion };
+export { storeQuestion, getQuestionById, updateAnswerQuestion, getAllQuestionsNotAnswer };

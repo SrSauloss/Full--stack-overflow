@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { getQuestionId, storeQuestion, updateQuestion } from '../controllers/questions.controller';
+import * as questionsController from '../controllers/questions.controller';
 
 const questionRouter = new (Router as any)();
 
-questionRouter.post('/questions', storeQuestion);
-questionRouter.get('/questions/:id', getQuestionId);
-questionRouter.post('/questions/:id', updateQuestion);
+questionRouter.post('/questions', questionsController.storeQuestion);
+questionRouter.get('/questions/:id', questionsController.getQuestionId);
+questionRouter.post('/questions/:id', questionsController.updateQuestion);
+questionRouter.get('/questions', questionsController.getQuestionsNotAnswer);
 
 export default questionRouter;

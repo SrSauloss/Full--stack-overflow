@@ -6,8 +6,8 @@ export interface question {
 }
 
 export interface db_question extends question{
+    id: string;
     answered: boolean;
-    submitAt: string;
 }
 
 export interface answer {

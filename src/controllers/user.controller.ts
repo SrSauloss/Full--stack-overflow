@@ -22,7 +22,6 @@ async function storeUser(req: Request, res: Response) {
     if (err.name === 'UserError') {
       return res.status(400).send(err.message);
     }
-    res.sendStatus(500);
   }
 }
 

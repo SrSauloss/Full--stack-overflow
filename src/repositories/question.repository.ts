@@ -30,6 +30,11 @@ async function getAnswerById(id : string) : Promise<db_answer> {
     return resul.rows[0];
 }
 
+async function getAllQuestionsNotAnswer() : Promise<db_question[]>{
+    const resul = await connection.query(`SELECT * FROM questions WHERE answered = $1`, [false]);
+    return resul.rows;
+}
+
 async function updateQuestion(objectanswer : answer) {
     const resul = await connection.query(`
     INSERT INTO answers ("answeredAt", "answeredBy", answer, question_id, user_id )
@@ -43,4 +48,4 @@ async function updateQuestion(objectanswer : answer) {
     return resulQuestion.rowCount;
 }
 
-export { storeQuestion, getQuestionById, getAnswerById, updateQuestion };
+export { storeQuestion, getQuestionById, getAnswerById, updateQuestion, getAllQuestionsNotAnswer};
